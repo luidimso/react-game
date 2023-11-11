@@ -1,23 +1,19 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Player() {
-  const [playerName, setPlayerName] = useState("");
-  const [wasSubmitted, setWasSubmitted] = useState(false);
+  const inputPlayerName = useRef();
 
-  function handleChange(event) {
-    setWasSubmitted(false);
-    setPlayerName(event.target.value);
-  }
+  const [playerName, setPlayerName] = useState("");
 
   function hangleClick() {
-    setWasSubmitted(true);
+    setPlayerName(inputPlayerName.current.value);
   }
 
   return (
     <section id="player">
-      <h2>Welcome {wasSubmitted ? playerName : ""}</h2>
+      <h2>Welcome {playerName ? playerName : ""}</h2>
       <p>
-        <input type="text" onChange={handleChange} />
+        <input ref={inputPlayerName} type="text" />
         <button onClick={hangleClick}>Set Name</button>
       </p>
     </section>
